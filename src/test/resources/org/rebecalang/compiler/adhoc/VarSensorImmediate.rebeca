@@ -19,31 +19,31 @@ reactiveclass Sensor(3) {
 
 reactiveclass CompUnit(3) {
 	statevars {
-		Network network;
+		Networkk networkk;
 	}
 	
-	CompUnit(Network net) {
-		network = net;
+	CompUnit(Networkk net) {
+		networkk = net;
 	}
 
 	msgsrv receiveData(byte data) {
-		network.send(data);
+		networkk.send(data);
 	}
 	
 }
 
-interface Network {
+interface Networkk {
 	msgsrv send(byte data);
 }
 
-reactiveclass MACBNetwork implements Network(3) {
+reactiveclass MACBNetwork implements Networkk(3) {
 	msgsrv send(byte data) {
 		// Send data according 
 		// to the MACB protocol
 	}
 }
 
-reactiveclass TDMANetwork implements Network(3) {
+reactiveclass TDMANetwork implements Networkk(3) {
 	msgsrv send(byte data) {
 		// Send data according
 		// to the TDMA protocol
@@ -52,6 +52,6 @@ reactiveclass TDMANetwork implements Network(3) {
 
 main {
 	Sensor sensor():(cu);
-	CompUnit cu():(network);
-	TDMANetwork network():();
+	CompUnit cu():(networkk);
+	TDMANetwork networkk():();
 }

@@ -284,6 +284,8 @@ public abstract class AbstractCompilerFacade {
 		
 		removeRebecInstancesBasedOnTheRequiredFeature();
 
+		addExtraMetaDeclarationsToRebecaExtension();
+
 		typeSystemInitializer.fillTypeSystem(rebecaModel);
 		
 		symbolTableInitializer.fillSymbolTable(rebecaModel, coreVersion);
@@ -391,6 +393,7 @@ public abstract class AbstractCompilerFacade {
 	protected abstract void addMethodsOfRebecaExtensionToSymbolTable();
 
 	protected abstract void addVariablesOfRebecaExtensionToScope();
+	protected abstract void addExtraMetaDeclarationsToRebecaExtension();
 	
 	protected abstract StatementSemanticCheckContainer getStatementSemanticCheckContainer();
 

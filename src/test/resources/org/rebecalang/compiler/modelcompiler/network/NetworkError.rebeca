@@ -1,0 +1,80 @@
+mailbox BMailbox {
+    knownsenders {
+        A a;
+    }
+    orders {
+        sender == a,
+        min(messageArrivalTime),
+        messageServerName == m
+    }
+}
+
+mailbox AMailbox {
+    knownsenders {
+        B b;
+    }
+    orders {
+        max(messageDeadline),
+        min(messageExecutionTime),
+        sender == b,
+        messageServerName == m2
+    }
+}
+
+reactiveclass A (3) {
+	knownrebecs {
+		B bb;
+	}
+
+	statevars {
+		Timer t;
+	}
+	A() {
+	}
+
+	msgsrv m2() {
+		startTimer(t);
+		stopTimer(t);
+		int v = getTimerValue(t);
+		bb.m(self, 2) after(v = 4) deadline (3 + 9);
+	}
+}
+
+reactiveclass B (3) {
+	statevars {
+	}
+	B() {
+	}
+
+	msgsrv m(A param1, int param2) {
+	    delay(5);
+		int value = now + currentMessageArrival + currentMessageDeadline + currentMessageWaitingTime;
+	}
+}
+
+network MyNetwork {
+    knownNodes {
+        A alpha;
+        B beta;
+    }
+    delays {
+        alpha -> beta: 5 + 3,
+        alpha -> beta: false,
+        alpha -> beta: -3,
+        aplpha -> beta: 1==2,
+        x -> y: 1
+    }
+    losses {
+        alpha -> beta
+    }
+}
+
+main {
+    MyNetwork myNetwork<xbox>(a, b);
+	A a<xbox>(b):();
+    BMailbox tmbox(a);
+    B b<tmbox>():();
+    AMailbox xbox(b);
+    MyNetwork yourNetwork<>();
+    MyNetwork theirNetwork<noBox>(b,a);
+}

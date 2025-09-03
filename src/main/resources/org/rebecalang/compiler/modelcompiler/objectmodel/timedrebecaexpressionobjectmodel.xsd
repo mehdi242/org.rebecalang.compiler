@@ -18,4 +18,37 @@
 		</xs:complexContent>
 	</xs:complexType>
 
+	<xs:complexType name="AggregationConditionPrimary">
+		<xs:complexContent>
+			<xs:extension base="corerebecaexp:PrimaryExpression">
+				<xs:sequence>
+					<xs:element name="label" type="corerebecaexp:Label" />
+					<xs:element name="argument" type="corerebecaexp:Expression" />
+				</xs:sequence>
+				<xs:attribute name="name" type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="DelayExpression">
+		<xs:complexContent>
+			<xs:extension base="corerebecaexp:Expression">
+			<xs:sequence>
+				<xs:element name="amount" type="corerebecaexp:Expression" />
+			</xs:sequence>
+				<xs:attribute name="senderName" type="xs:string" />
+				<xs:attribute name="receiverName" type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="LossExpression">
+		<xs:complexContent>
+			<xs:extension base="corerebecaexp:Expression">
+				<xs:attribute name="senderName" type="xs:string" />
+				<xs:attribute name="receiverName" type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
 </xs:schema>

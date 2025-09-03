@@ -1,0 +1,12 @@
+MODE=1
+PHYSICALCLASS=2
+INV=3
+GUARD=4
+PRIORITIES=5
+PRIME=6
+'mode'=1
+'physicalclass'=2
+'inv'=3
+'guard'=4
+'priorities'=5
+'\''=6

@@ -51,7 +51,7 @@
 				type="ReactiveClassDeclaration" maxOccurs="unbounded" minOccurs="0" />
 			<xs:element name="interfaceDeclaration"
 				type="InterfaceDeclaration" maxOccurs="unbounded" minOccurs="0" />
-			<xs:element ref="MainDeclaration" />
+			<xs:element name="mainDeclaration" type="MainDeclaration" />
 		</xs:sequence>
 		<xs:attribute name="lineNumber" type="xs:int" />
 		<xs:attribute name="character" type="xs:int" />
@@ -80,35 +80,31 @@
 		</xs:complexType>
 	</xs:element>
 
-	<xs:element name="MainDeclaration">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="MainRebecDefinition"
-					maxOccurs="unbounded" minOccurs="0" />
-			</xs:sequence>
-			<xs:attribute name="lineNumber" type="xs:int" />
-			<xs:attribute name="character" type="xs:int" />
-			<xs:attribute name="endLineNumber" type="xs:int" />
-			<xs:attribute name="endCharacter" type="xs:int" />
-		</xs:complexType>
-	</xs:element>
+	<xs:complexType name="MainDeclaration">
+		<xs:sequence>
+			<xs:element type="MainRebecDefinition" name="mainRebecDefinition"
+				maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="lineNumber" type="xs:int" />
+		<xs:attribute name="character" type="xs:int" />
+		<xs:attribute name="endLineNumber" type="xs:int" />
+		<xs:attribute name="endCharacter" type="xs:int" />
+	</xs:complexType>
 
-	<xs:element name="MainRebecDefinition">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="annotations" type="exp:Annotation"
-					maxOccurs="unbounded" minOccurs="0" />
-				<xs:element name="bindings" type="exp:Expression"
-					maxOccurs="unbounded" minOccurs="0" />
-				<xs:element name="arguments" type="exp:Expression"
-					maxOccurs="unbounded" minOccurs="0" />
-				<xs:element name="type" type="exp:Type" />
-			</xs:sequence>
-			<xs:attribute name="name" type="xs:string" />
-			<xs:attribute name="lineNumber" type="xs:int" />
-			<xs:attribute name="character" type="xs:int" />
-		</xs:complexType>
-	</xs:element>
+	<xs:complexType name="MainRebecDefinition">
+		<xs:sequence>
+			<xs:element name="annotations" type="exp:Annotation"
+				maxOccurs="unbounded" minOccurs="0" />
+			<xs:element name="bindings" type="exp:Expression"
+				maxOccurs="unbounded" minOccurs="0" />
+			<xs:element name="arguments" type="exp:Expression"
+				maxOccurs="unbounded" minOccurs="0" />
+			<xs:element name="type" type="exp:Type" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="lineNumber" type="xs:int" />
+		<xs:attribute name="character" type="xs:int" />
+	</xs:complexType>
 
 	<xs:complexType name="BaseClassDeclaration">
 		<xs:sequence>

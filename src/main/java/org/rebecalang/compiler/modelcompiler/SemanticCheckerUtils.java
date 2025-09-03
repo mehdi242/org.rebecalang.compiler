@@ -180,7 +180,8 @@ public class SemanticCheckerUtils {
 			Type biggerType = getCommonSuperType(lType, rType);
 			if (!biggerType.canTypeUpCastTo(CoreRebecaTypeSystem.DOUBLE_TYPE)
 					&& !biggerType.canTypeUpCastTo(CoreRebecaTypeSystem.BOOLEAN_TYPE)
-					&& !biggerType.canTypeUpCastTo(CoreRebecaTypeSystem.REACTIVE_CLASS_TYPE)) {
+					&& !biggerType.canTypeUpCastTo(CoreRebecaTypeSystem.REACTIVE_CLASS_TYPE)
+					&& !biggerType.canTypeUpCastTo(CoreRebecaTypeSystem.STRING_TYPE)) {
 				CodeCompilationException cce = createEvaluateExceptionMessage(
 						0, 0, operator, rType, lType);
 				if (cce == null)

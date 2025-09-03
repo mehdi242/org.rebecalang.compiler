@@ -1,7 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	elementFormDefault="qualified" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+           elementFormDefault="qualified" targetNamespace="http://rebecalang.org/compiler/modelcompiler/timedrebeca"
+           xmlns:corerebeca="http://rebecalang.org/compiler/modelcompiler/corerebeca"
+           xmlns:corerebecaexp="http://rebecalang.org/compiler/modelcompiler/corerebecaexpression"
+           xmlns:timedrebecaexp="http://rebecalang.org/compiler/modelcompiler/timedrebecaexpression"
+           xmlns="http://rebecalang.org/compiler/modelcompiler/timedrebeca">
 
-	<xs:import namespace="http://rebecalang.org/compiler/modelcompiler/timedrebecaexpression"
-		schemaLocation="timedrebecaexpressionobjectmodel.xsd"/>
+    <xs:import namespace="http://rebecalang.org/compiler/modelcompiler/corerebecaexpression"
+               schemaLocation="corerebecaexpressionobjectmodel.xsd" />
+    <xs:import namespace="http://rebecalang.org/compiler/modelcompiler/corerebeca"
+               schemaLocation="corerebecaobjectmodel.xsd" />
+    <xs:import namespace="http://rebecalang.org/compiler/modelcompiler/timedrebecaexpression"
+               schemaLocation="timedrebecaexpressionobjectmodel.xsd"/>
+
+    <xs:complexType name="TimedRebecaCode">
+        <xs:complexContent>
+            <xs:extension base="corerebeca:RebecaCode">
+                <xs:sequence>
+                    <xs:element type="MailboxDeclaration" name="mailboxDeclaration"
+                                maxOccurs="unbounded" minOccurs="0"/>
+                    <xs:element type="NetworkDeclaration" name="networkDeclaration"
+                                maxOccurs="unbounded" minOccurs="0" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TimedMainDeclaration">
+        <xs:complexContent>
+            <xs:extension base="corerebeca:MainDeclaration">
+                <xs:sequence>
+                    <xs:element type="MainMailboxDefinition" name="mainMailboxDefinition"
+                                maxOccurs="unbounded" minOccurs="0"/>
+                    <xs:element type="MainNetworkDefinition" name="mainNetworkDefinition"
+                                maxOccurs="unbounded" minOccurs="0" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="MainMailboxDefinition">
+        <xs:sequence>
+            <xs:element name="bindings" type="corerebecaexp:Expression"
+                        maxOccurs="unbounded" minOccurs="0" />
+            <xs:element name="type" type="corerebecaexp:Type" />
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" />
+        <xs:attribute name="lineNumber" type="xs:int" />
+        <xs:attribute name="character" type="xs:int" />
+    </xs:complexType>
+
+    <xs:complexType name="MainNetworkDefinition">
+        <xs:sequence>
+            <xs:element name="mailbox" type="corerebecaexp:Expression" />
+            <xs:element name="bindings" type="corerebecaexp:Expression"
+                        maxOccurs="unbounded" minOccurs="0" />
+            <xs:element name="type" type="corerebecaexp:Type" />
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" />
+        <xs:attribute name="lineNumber" type="xs:int" />
+        <xs:attribute name="character" type="xs:int" />
+    </xs:complexType>
+
+    <xs:complexType name="TimedMainRebecDefinition">
+        <xs:complexContent>
+            <xs:extension base="corerebeca:MainRebecDefinition">
+                <xs:sequence>
+                    <xs:element name="mailbox" type="corerebecaexp:Expression" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="MailboxDeclaration">
+        <xs:sequence>
+            <xs:element name="knownSenders" type="corerebeca:FieldDeclaration"
+                        maxOccurs="unbounded" minOccurs="0"/>
+            <xs:element name="orders" type="corerebecaexp:Expression"
+                        maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string"/>
+        <xs:attribute name="lineNumber" type="xs:int"/>
+        <xs:attribute name="character" type="xs:int"/>
+        <xs:attribute name="endLineNumber" type="xs:int"/>
+        <xs:attribute name="endCharacter" type="xs:int"/>
+    </xs:complexType>
+
+    <xs:complexType name="NetworkDeclaration">
+        <xs:sequence>
+            <xs:element name="knownNodes" type="corerebeca:FieldDeclaration"
+                        maxOccurs="unbounded" minOccurs="0" />
+            <xs:element name="delays" type="timedrebecaexp:DelayExpression"
+                        maxOccurs="unbounded" minOccurs="0" />
+            <xs:element name="losses" type="timedrebecaexp:LossExpression"
+                        maxOccurs="unbounded" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string"/>
+        <xs:attribute name="lineNumber" type="xs:int"/>
+        <xs:attribute name="character" type="xs:int"/>
+        <xs:attribute name="endLineNumber" type="xs:int"/>
+        <xs:attribute name="endCharacter" type="xs:int"/>
+    </xs:complexType>
 
 </xs:schema>
